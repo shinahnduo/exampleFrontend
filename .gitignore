@@ -1,0 +1,39 @@
+# Node.js 관련
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# 빌드 출력물
+dist/
+*.local
+
+# 환경 변수 파일
+.env
+.env.local
+.env.*.local
+
+# Editor 관련
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# 로그 파일
+logs/
+*.log
+logs/*.log
+
+# OS 관련
+.DS_Store
+Thumbs.db
+
+# 테스트 관련
+coverage/
+*.lcov
+
+# 기타
+*.cache
