@@ -7,16 +7,11 @@ import Main from '../pages/Main.vue'
 import Login from '../pages/Login.vue'
 import Signup from '../pages/Signup.vue'
 import Landing from '../pages/Landing.vue'
-import About from '../pages/About.vue'
 import Detail from '../pages/Detail.vue'
 import Editor from '../pages/Editor.vue'
 import Reader from '../pages/Reader.vue'
 import ReadDetail from '../pages/ReadDetail.vue'
 import SubItemDetail from '../pages/SubItemDetail.vue'
-import Support from '../pages/Support.vue'
-import Questions from '../pages/Questions.vue'
-import Privacy from '../pages/Privacy.vue'
-import TermsOfUse from '../pages/TermsOfUse.vue'
 
 // JWT 토큰 확인 함수
 const isAuthenticated = () => {
@@ -35,11 +30,6 @@ export const routes = [
     component: () => import('@/pages/Home.vue'),
   },
   {
-    name: 'Main2',
-    path: '/main2',
-    component: () => import('@/pages/Main.vue'),
-  },
-  {
     name: 'Login',
     path: '/login',
     component: () => import('@/pages/Login.vue'),
@@ -48,16 +38,6 @@ export const routes = [
     name: 'SignUp',
     path: '/signup',
     component: () => import('@/pages/Signup.vue'),
-  },
-  {
-    name: 'Detail',
-    path: '/detail/:id',
-    component: () => import('@/pages/Detail.vue'),
-  },
-  {
-    name: 'About',
-    path: '/about',
-    component: () => import('@/pages/About.vue'),
   },
   {
     path: '/detail/:id',
@@ -72,26 +52,6 @@ export const routes = [
     name: 'Reader',
     path: '/Reader',
     component: () => import('@/pages/Reader.vue'),
-  },
-  {
-    name: 'Terms of Use',
-    path: '/terms-of-use',
-    component: () => import('@/pages/TermsOfUse.vue'),
-  },
-  {
-    name: 'Support',
-    path: '/support',
-    component: () => import('@/pages/Support.vue'),
-  },
-  {
-    name: 'Questions',
-    path: '/questions',
-    component: () => import('@/pages/Questions.vue'),
-  },
-  {
-    name: 'Privacy',
-    path: '/privacy',
-    component: () => import('@/pages/Privacy.vue'),
   },
   {
     path: '/:pathMatch(.*)*',

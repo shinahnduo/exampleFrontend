@@ -1,16 +1,12 @@
 <template>
   <div class="header">
+<!--    <img src="@/assets/logo.png" alt="logo" class="logo" />-->
+<!--    <img src="@/assets/profile-icon.png" alt="profile" class="profile-icon" />-->
   </div>
   <div class="progress-bar">
     <div class="progress" :style="{ width: '16%' }"></div>
   </div>
 </template>
-
-<script setup>
-defineOptions({
-  name: 'Header'
-})
-</script>
 
 <style scoped>
 .header {
@@ -40,3 +36,5 @@ defineOptions({
   border-radius: 2px;
 }
 </style>
+<script setup lang="ts">
+</script>

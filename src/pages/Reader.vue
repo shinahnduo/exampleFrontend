@@ -12,9 +12,9 @@
 </template>
 
 <script>
-import HeaderComponent from '../components/page/reader/HeaderComponent.vue';
-import ContentComponent from '../components/page/reader/ContentComponent.vue';
-import FooterComponent from '../components/page/reader/FooterComponent.vue';
+import HeaderComponent from '../components/HeaderComponent.vue';
+import ContentComponent from '../components/ContentComponent.vue';
+import FooterComponent from '../components/FooterComponent.vue';
 
 export default {
   name: 'Reader',

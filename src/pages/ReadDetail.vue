@@ -33,7 +33,7 @@
 
 <script setup>
 import { useRouter } from 'vue-router'
-import Header from '@/components/page/Header.vue'
+import Header from '@/components/Header.vue'
 
 const router = useRouter()
 

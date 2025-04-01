@@ -19,51 +19,37 @@
   </div>
 </template>
 
-<script>
-import { ref } from "vue";
+<script setup>
+import { ref, defineProps, defineEmits } from "vue";
 import { useRouter } from "vue-router";
-import EditableTitle from "./EditableTitle.vue";
+import EditableTitle from "@/components/EditableTitle.vue";
 
-export default {
-  name: 'Accordion',
-  components: {
-    EditableTitle
-  },
-  props: {
-    title: {
-      type: String,
-      required: true
-    }
-  },
-  setup(props, { emit }) {
-    const isOpen = ref(false);
-    const router = useRouter();
+const props = defineProps({
+  title: String
+});
 
-    const toggle = () => {
-      isOpen.value = !isOpen.value;
-    };
+const emit = defineEmits(["update:title", "remove"]);
 
-    const onRemove = () => {
-      emit("remove");
-    };
+const isOpen = ref(false);
+const router = useRouter();
 
-    const updateTitle = (newTitle) => {
-      emit("update:title", newTitle);
-    };
+const toggle = () => {
+  isOpen.value = !isOpen.value;
+};
 
-    const navigateToRead = () => {
-      router.push(`/read/1`);
-    };
+const onRemove = () => {
+  emit("remove");
+};
 
-    return {
-      isOpen,
-      toggle,
-      onRemove,
-      updateTitle,
-      navigateToRead
-    };
-  }
-}
+// 제목 업데이트
+const updateTitle = (newTitle) => {
+  emit("update:title", newTitle);
+};
+
+// 읽기 버튼 클릭 시 이동
+const navigateToRead = () => {
+  router.push(`/read/1`);
+};
 </script>
 
 <style scoped>

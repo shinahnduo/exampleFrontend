@@ -2,19 +2,19 @@
   <div class="header">
     <div class="header-left">
       <button class="publish-button">
-        <IconBack />
+        <IconBack/>
       </button>
       <button class="publish-button">
-        <IconChapter />
+        <IconChapter/>
       </button>
       <h6>제 1장: 블라블라</h6>
     </div>
     <div class="header-right">
       <button class="icon-button">
-        <IconShare />
+        <IconShare/>
       </button>
       <button class="icon-button">
-        <IconUser />
+        <IconUser/>
       </button>
       <DropdownMenu class="content"/>
     </div>
@@ -23,14 +23,10 @@
 
 <script setup>
 import IconBack from "@/components/icons/IconBack.vue";
-import IconChapter from "@/components/icons/IconChapter.vue";
-import IconShare from "@/components/icons/IconShare.vue";
 import IconUser from "@/components/icons/IconUser.vue";
-import DropdownMenu from "@/components/page/reader/DropdownMenu.vue";
-
-defineOptions({
-  name: 'HeaderComponent'
-})
+import IconShare from "@/components/icons/IconShare.vue";
+import IconChapter from "@/components/icons/IconChapter.vue";
+import DropdownMenu from "@/components//DropdownMenu.vue";
 </script>
 
 <style scoped>
@@ -40,13 +36,13 @@ defineOptions({
   align-items: center;
   width: 100%;
   padding: 16px;
-  background-color: #F1EBE4; /* 배경색 */
-  border-bottom: 1px solid #e0e0e0; /* 하단 경계선 */
+  background-color: #f1ebe4;
+  border-bottom: 1px solid #e0e0e0;
 }
 
 .header-left {
   display: flex;
-  gap: 16px; /* 아이콘 간격 */
+  gap: 16px;
   font-size: 15px;
   font-weight: bold;
   margin: 0;
@@ -54,7 +50,7 @@ defineOptions({
 
 .header-right {
   display: flex;
-  gap: 8px; /* 아이콘 간격 */
+  gap: 8px;
 }
 
 .icon-button {
@@ -65,7 +61,7 @@ defineOptions({
 }
 
 .icon-button img {
-  width: 24px; /* 아이콘 크기 */
+  width: 24px;
   height: 24px;
 }
 </style>
