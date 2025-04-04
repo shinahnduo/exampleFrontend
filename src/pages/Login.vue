@@ -1,62 +1,56 @@
 <template>
   <div class="login-container">
-    <form @submit.prevent="handleSubmit">
-      <div class="form-group">
-        <label for="email">이메일</label>
-        <input 
-          type="email" 
-          id="email" 
-          v-model="email" 
-          required
-        />
+    <h2>이메일과 비밀번호로 로그인</h2>
+    <form @submit.prevent="handleLogin">
+      <div>
+        <label for="email">이메일:</label>
+        <input type="email" v-model="email" required />
       </div>
-      <div class="form-group">
-        <label for="password">비밀번호</label>
-        <input 
-          type="password" 
-          id="password" 
-          v-model="password" 
-          required
-        />
-      </div>
-      <div v-if="error" class="error">
-        {{ error }}
+      <div>
+        <label for="password">비밀번호:</label>
+        <input type="password" v-model="password" required />
       </div>
       <button type="submit">로그인</button>
+      <div v-if="error" class="error">{{ error }}</div>
     </form>
   </div>
 </template>
 
 <script>
-import { defineComponent } from 'vue'
-import { mapActions } from 'vuex'
+import { ref } from 'vue'
+import { useRouter } from 'vue-router'
+import axios from 'axios'
 
-export default defineComponent({
-  name: 'Login',
-  data() {
-    return {
-      email: '',
-      password: '',
-      error: null
-    }
-  },
-  methods: {
-    ...mapActions('auth', ['login']),
-    async handleSubmit() {
+export default {
+  setup() {
+    const email = ref('')
+    const password = ref('')
+    const error = ref(null)
+    const router = useRouter()
+
+    const handleLogin = async () => {
       try {
-        this.error = null
-        await this.login({
-          email: this.email,
-          password: this.password
+        error.value = null
+        const response = await axios.post('http://localhost:8000/auth/login', {
+          login_id: email.value,
+          password: password.value
         })
-        this.$router.push('/main')
-      } catch (error) {
-        this.error = '로그인에 실패했습니다.'
-        console.error('Login error:', error)
+
+        // 로그인 성공 시 /main 페이지로 이동
+        if (response.data.token) {
+          // 토큰을 로컬 스토리지에 저장 (선택 사항)
+          localStorage.setItem('token', response.data.token)
+          router.push('/main')
+        }
+      } catch (err) {
+        error.value = err.response?.data?.detail || '로그인에 실패했습니다.'
+        console.error('Login error:', err)
       }
     }
+
+    return { email, password, handleLogin, error }
   }
-})
+}
 </script>
 
 <style scoped>
@@ -64,31 +58,32 @@ export default defineComponent({
   max-width: 400px;
   margin: 0 auto;
   padding: 20px;
+  background: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-.form-group {
-  margin-bottom: 15px;
+h2 {
+  text-align: center;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
 }
 
 label {
-  display: block;
   margin-bottom: 5px;
 }
 
 input {
-  width: 100%;
-  padding: 8px;
-  border: 1px solid #ddd;
+  margin-bottom: 15px;
+  padding: 10px;
+  border: 1px solid #ccc;
   border-radius: 4px;
 }
 
-.error {
-  color: red;
-  margin-bottom: 10px;
-}
-
 button {
-  width: 100%;
   padding: 10px;
   background-color: #4CAF50;
   color: white;
@@ -99,5 +94,11 @@ button {
 
 button:hover {
   background-color: #45a049;
+}
+
+.error {
+  color: red;
+  text-align: center;
+  margin-top: 10px;
 }
 </style>

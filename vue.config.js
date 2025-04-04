@@ -7,7 +7,12 @@ module.exports = {
   devServer: {
     port: 8080,
     open: true,
-    historyApiFallback: true
+    historyApiFallback: true,
+    headers: {
+      'Cross-Origin-Opener-Policy': 'same-origin-allow-popups', // ✅ 팝업 opener 허용
+      'Cross-Origin-Embedder-Policy': 'unsafe-none',             // ✅ cross-origin 리소스 허용
+      'Access-Control-Allow-Origin': '*'                         // ✅ 외부 접근 허용
+    }
   },
   pwa: {
     name: 'Better Write',
@@ -19,13 +24,18 @@ module.exports = {
     workboxOptions: {
       skipWaiting: true,
       clientsClaim: true,
-      exclude: [/\.map$/, /_redirects/],
+      exclude: [
+        /\.map$/, 
+        /_redirects/, 
+        /^https:\/\/accounts\.google\.com\/.*/, // ✅ Google login 관련 외부 URL 제외
+        /^https:\/\/apis\.google\.com\/.*/      // ✅ Google API 호출 제외
+      ]
     },
     manifestOptions: {
       name: 'Better Write',
       short_name: 'BWrite',
-      start_url: '/',
-      display: 'standalone',
+      start_url: '/',           // ✅ 정확한 루트 경로 지정
+      display: 'standalone',    // PWA 스타일로 실행
       theme_color: '#4CAF50',
       background_color: '#ffffff'
     }
