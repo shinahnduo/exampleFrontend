@@ -12,6 +12,7 @@ import Reader from '../pages/Reader.vue'
 import ReadDetail from '../pages/ReadDetail.vue'
 import SubItemDetail from '../pages/SubItemDetail.vue'
 import Callback from '../components/Callback.vue'
+import MyPage from "@/pages/MyPage.vue"
 
 // JWT 토큰 확인 함수
 const isAuthenticated = () => {
@@ -60,7 +61,10 @@ export const routes = [
   {
     path: '/auth/callback',
     component: () => import('@/components/Callback.vue')
-  }  
+  },
+  { 
+    path: "/mypage", name: "MyPage", component: MyPage 
+  },
 ]
 
 // Vue Router 생성

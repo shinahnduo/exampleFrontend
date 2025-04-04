@@ -1,17 +1,14 @@
 <template>
   <div>
-    <HeaderComponent />
     <ScheduleList />
   </div>
 </template>
 
 <script>
-import HeaderComponent from '@/components/HeaderComponent.vue';
 import ScheduleList from '@/components/ScheduleList.vue';
 
 export default {
   components: {
-    HeaderComponent,
     ScheduleList,
   },
 };

@@ -1,10 +1,12 @@
 <template>
-  <div class="header">
-<!--    <img src="@/assets/logo.png" alt="logo" class="logo" />-->
-<!--    <img src="@/assets/profile-icon.png" alt="profile" class="profile-icon" />-->
-  </div>
-  <div class="progress-bar">
-    <div class="progress" :style="{ width: '16%' }"></div>
+  <div>
+    <div class="header">
+<!--      <img src="@/assets/logo.png" alt="logo" class="logo" />-->
+<!--      <img src="@/assets/profile-icon.png" alt="profile" class="profile-icon" />-->
+    </div>
+    <div class="progress-bar">
+      <div class="progress" :style="{ width: '16%' }"></div>
+    </div>
   </div>
 </template>
 

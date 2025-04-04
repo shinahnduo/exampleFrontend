@@ -36,8 +36,9 @@ import DropdownMenu from "@/components/DropdownMenu.vue";
   align-items: center;
   width: 100%;
   padding: 16px;
-  background-color: #f1ebe4;
-  border-bottom: 1px solid #e0e0e0;
+  background-color: #4CAF50; /* 통일된 색상 */
+  color: black; /* 텍스트 색상 */
+  border-bottom: 2px solid #3e8e41; /* 강조된 하단 경계 */
 }
 
 .header-left {
@@ -45,7 +46,6 @@ import DropdownMenu from "@/components/DropdownMenu.vue";
   gap: 16px;
   font-size: 15px;
   font-weight: bold;
-  margin: 0;
 }
 
 .header-right {
@@ -58,6 +58,7 @@ import DropdownMenu from "@/components/DropdownMenu.vue";
   border: none;
   padding: 0;
   cursor: pointer;
+  color: white; /* 아이콘 색상 */
 }
 
 .icon-button img {
