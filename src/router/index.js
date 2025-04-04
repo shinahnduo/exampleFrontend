@@ -3,7 +3,6 @@ import store from '../store/auth'
 
 // 페이지 컴포넌트들 import
 import Home from '../pages/Home.vue'
-import Main from '../pages/Main.vue'
 import Login from '../pages/Login.vue'
 import Signup from '../pages/Signup.vue'
 import Landing from '../pages/Landing.vue'
@@ -12,6 +11,7 @@ import Editor from '../pages/Editor.vue'
 import Reader from '../pages/Reader.vue'
 import ReadDetail from '../pages/ReadDetail.vue'
 import SubItemDetail from '../pages/SubItemDetail.vue'
+import Callback from '../components/Callback.vue'
 
 // JWT 토큰 확인 함수
 const isAuthenticated = () => {
@@ -57,6 +57,10 @@ export const routes = [
     path: '/:pathMatch(.*)*',
     redirect: '/',
   },
+  {
+    path: '/auth/callback',
+    component: () => import('@/components/Callback.vue')
+  }  
 ]
 
 // Vue Router 생성

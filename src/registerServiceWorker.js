@@ -1,3 +1,5 @@
+/* eslint-disable no-console */
+
 import { register } from 'register-service-worker'
 
 if (process.env.NODE_ENV === 'production') {
@@ -5,8 +7,16 @@ if (process.env.NODE_ENV === 'production') {
     ready () {
       console.log('App is being served from cache by a service worker.')
     },
-    registered () {
+    registered (registration) {
       console.log('Service worker has been registered.')
+      
+      // 구글 로그인을 위한 서비스 워커 범위 설정
+      if (registration.scope) {
+        registration.active.postMessage({
+          type: 'SET_COOP',
+          value: 'same-origin-allow-popups'
+        })
+      }
     },
     cached () {
       console.log('Content has been cached for offline use.')
@@ -14,7 +24,7 @@ if (process.env.NODE_ENV === 'production') {
     updatefound () {
       console.log('New content is downloading.')
     },
-    updated () {
+    updated (registration) {
       console.log('New content is available; please refresh.')
     },
     offline () {

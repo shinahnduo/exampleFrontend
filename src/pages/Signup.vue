@@ -2,9 +2,8 @@
   <div class="signup-container">
     <h2>회원가입</h2>
     <form @submit.prevent="onSubmit">
-      <input v-model="formData.login_id" type="text" placeholder="아이디" required />
-      <input v-model="formData.password" type="password" placeholder="비밀번호" required />
       <input v-model="formData.email" type="email" placeholder="이메일" required />
+      <input v-model="formData.password" type="password" placeholder="비밀번호" required />
       <input v-model="formData.phone" type="tel" placeholder="전화번호" required />
       <input v-model="formData.user_name" type="text" placeholder="이름" required />
       <textarea v-model="formData.description" placeholder="자기소개"></textarea>
@@ -27,7 +26,6 @@ export default defineComponent({
       author_id: '',
       created_at: new Date().toISOString(),
       email: '',
-      login_id: '',
       password: '',
       phone: '',
       updated_at: new Date().toISOString(),

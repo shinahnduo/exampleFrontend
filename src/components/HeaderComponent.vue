@@ -2,21 +2,21 @@
   <div class="header">
     <div class="header-left">
       <button class="publish-button">
-        <IconBack/>
+        <IconBack />
       </button>
       <button class="publish-button">
-        <IconChapter/>
+        <IconChapter />
       </button>
       <h6>제 1장: 블라블라</h6>
     </div>
     <div class="header-right">
       <button class="icon-button">
-        <IconShare/>
+        <IconShare />
       </button>
       <button class="icon-button">
-        <IconUser/>
+        <IconUser />
       </button>
-      <DropdownMenu class="content"/>
+      <DropdownMenu class="content" />
     </div>
   </div>
 </template>
@@ -26,7 +26,7 @@ import IconBack from "@/components/icons/IconBack.vue";
 import IconUser from "@/components/icons/IconUser.vue";
 import IconShare from "@/components/icons/IconShare.vue";
 import IconChapter from "@/components/icons/IconChapter.vue";
-import DropdownMenu from "@/components//DropdownMenu.vue";
+import DropdownMenu from "@/components/DropdownMenu.vue";
 </script>
 
 <style scoped>
@@ -63,5 +63,22 @@ import DropdownMenu from "@/components//DropdownMenu.vue";
 .icon-button img {
   width: 24px;
   height: 24px;
+}
+
+/* 반응형 디자인 추가 */
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .header-left {
+    margin-bottom: 8px;
+  }
+
+  .header-right {
+    justify-content: flex-end;
+    width: 100%;
+  }
 }
 </style>
