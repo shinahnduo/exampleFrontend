@@ -4,74 +4,49 @@
 
     <div class="schedule-list">
       <Accordion
-        v-for="(category, categoryIndex) in schedules"
-        :key="categoryIndex"
-        :title="category.title"
-        @remove="removeCategory(categoryIndex)"
+        v-for="(schedule, scheduleIndex) in schedules"
+        :key="scheduleIndex"
+        :title="schedule.title"
+        @remove="removeSchedule(scheduleIndex)"
+        @update:title="(newTitle) => updateScheduleTitle(scheduleIndex, newTitle)"
       >
         <Accordion
-          v-for="(chapter, chapterIndex) in category.chapters"
+          v-for="(chapter, chapterIndex) in schedule.chapters"
           :key="chapterIndex"
           :title="chapter.title"
-          @remove="removeChapter(categoryIndex, chapterIndex)"
+          @remove="removeChapter(scheduleIndex, chapterIndex)"
+          @update:title="(newTitle) => updateChapterTitle(scheduleIndex, chapterIndex, newTitle)"
         >
           <AccordionSubList
             :items="chapter.subItems"
-            @add="addSubItem(categoryIndex, chapterIndex)"
-            @remove="removeSubItem(categoryIndex, chapterIndex, $event)"
+            @add="addSubItem(scheduleIndex, chapterIndex)"
+            @remove="removeSubItem(scheduleIndex, chapterIndex, $event)"
           />
         </Accordion>
-        <button class="add-button" @click="addChapter(categoryIndex)">+ 새로운 챕터 추가</button>
+        <button class="add-button" @click="addChapter(scheduleIndex)">+ 새로운 챕터 추가</button>
       </Accordion>
     </div>
 
-    <button class="create-button" @click="addCategory">+ 새로운 일정 추가</button>
+    <button class="create-button" @click="addSchedule">+ 새로운 일정 추가</button>
   </div>
 </template>
 
 <script setup>
-import { ref } from "vue";
 import Accordion from "@/components/Accordion.vue";
 import AccordionSubList from "@/components/AccordionSubList.vue";
+import {useScheduleManager} from "./api/scheduleManager";
 
-const schedules = ref([
-  {
-    title: "상하이",
-    chapters: [{ title: "Chapter 1", subItems: ["전망대 관람 (90분)"] }],
-  },
-  {
-    title: "뉴욕",
-    chapters: [{ title: "맨해튼 관광", subItems: ["센트럴 파크 산책 (120분)"] }],
-  },
-  {
-    title: "파리",
-    chapters: [{ title: "에펠탑 관광", subItems: ["에펠탑 야경 투어 (120분)"] }],
-  },
-]);
-
-const addCategory = () => {
-  schedules.value.push({ title: "새 일정", chapters: [] });
-};
-
-const removeCategory = (index) => {
-  schedules.value.splice(index, 1);
-};
-
-const addChapter = (categoryIndex) => {
-  schedules.value[categoryIndex].chapters.push({ title: "새로운 챕터", subItems: [] });
-};
-
-const removeChapter = (categoryIndex, chapterIndex) => {
-  schedules.value[categoryIndex].chapters.splice(chapterIndex, 1);
-};
-
-const addSubItem = (categoryIndex, chapterIndex) => {
-  schedules.value[categoryIndex].chapters[chapterIndex].subItems.push("새로운 일정 항목");
-};
-
-const removeSubItem = (categoryIndex, chapterIndex, subIndex) => {
-  schedules.value[categoryIndex].chapters[chapterIndex].subItems.splice(subIndex, 1);
-};
+const {
+  schedules,
+  addSchedule,
+  removeSchedule,
+  addChapter,
+  removeChapter,
+  addSubItem,
+  removeSubItem,
+  updateScheduleTitle,
+  updateChapterTitle
+} = useScheduleManager();
 </script>
 
 <style scoped>
