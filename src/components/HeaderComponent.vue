@@ -1,6 +1,7 @@
 <template>
   <div class="header">
     <div class="header-left">
+      <img src="@/assets/logos/header_logo_160x160.png" alt="Header Logo" class="header-logo" />
       <button class="publish-button">
         <IconBack />
       </button>
@@ -48,6 +49,12 @@ import DropdownMenu from "@/components/DropdownMenu.vue";
   font-weight: bold;
 }
 
+.header-logo {
+  width: 120px; /* 기본 크기 */
+  height: auto;
+  max-width: 100%; /* 반응형 크기 */
+}
+
 .header-right {
   display: flex;
   gap: 8px;
@@ -80,6 +87,10 @@ import DropdownMenu from "@/components/DropdownMenu.vue";
   .header-right {
     justify-content: flex-end;
     width: 100%;
+  }
+
+  .header-logo {
+    width: 100px; /* 작은 화면에서 로고 크기 조정 */
   }
 }
 </style>

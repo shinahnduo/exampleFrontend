@@ -1,7 +1,7 @@
 {
-  "name": "Better Write",
+  "name": "Momento",
   "short_name": "BWrite",
-  "description": "A better writing platform",
+  "description": "Writing this Momento",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",

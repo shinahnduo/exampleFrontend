@@ -15,7 +15,7 @@ module.exports = {
     }
   },
   pwa: {
-    name: 'Better Write',
+    name: 'Momento',
     themeColor: '#4CAF50',
     msTileColor: '#000000',
     appleMobileWebAppCapable: 'yes',
@@ -32,7 +32,7 @@ module.exports = {
       ]
     },
     manifestOptions: {
-      name: 'Better Write',
+      name: 'Momento',
       short_name: 'BWrite',
       start_url: '/',           // ✅ 정확한 루트 경로 지정
       display: 'standalone',    // PWA 스타일로 실행

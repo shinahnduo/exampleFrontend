@@ -2,8 +2,9 @@
   <div class="landing-container">
     <div class="content">
       <div class="logo-section">
-        <h1>Better Write</h1>
-        <p class="subtitle">Write Better, Together</p>
+        <MomentoLogo class="logo" />
+        <h1>Momento</h1>
+        <p class="subtitle">Writing This Momento</p>
       </div>
       <div class="button-section">
         <button class="login-button" @click="goToLogin">로그인</button>
@@ -20,6 +21,7 @@
 <script>
 import { defineComponent } from 'vue'
 import { useRouter } from 'vue-router'
+import MomentoLogo from '@/components/icons/MomentoLogo.vue'
 
 export default defineComponent({
   name: 'Landing',
@@ -70,8 +72,8 @@ export default defineComponent({
 }
 
 .logo {
-  width: 80px;
-  height: 80px;
+  width: 150px;
+  height: auto;
   margin-bottom: 1rem;
 }
 
