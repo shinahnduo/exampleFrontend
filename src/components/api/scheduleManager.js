@@ -140,6 +140,55 @@ export const useScheduleManager = () => {
         fetchMainPageData();
     });
 
+    const extractSubFromToken = (token) => {
+        try {
+            const payload = token.split(".")[1];
+            const decodedPayload = atob(payload);
+            const parsedPayload = JSON.parse(decodedPayload);
+            return parsedPayload.sub; // sub가 현재 유저 이메일임
+        } catch (error) {
+            console.error("JWT에서 sub 추출 실패 ❌", error);
+            return null; // 실패 시 null 반환
+        }
+    };
+
+    const saveChapterDetail = async (detailData, file) => {
+        try {
+          const token = localStorage.getItem("jwt_token");
+          if (!token) throw new Error("로그인이 필요합니다.");
+          const uid = extractSubFromToken(token); // JWT에서 sub 추출
+        if (!uid) throw new Error("사용자 ID 추출 실패");
+          // const scheduleId = schedules.value[scheduleIndex].id;
+          // const chapterId = schedules.value[scheduleIndex].chapters[chapterIndex].id;
+      
+          // detail_data는 JSON, file은 이미지 업로드
+          const formData = new FormData();
+          // detail_data를 문자열화해서 첨부
+          formData.append("detail_data", JSON.stringify(detailData));
+          // file이 있으면 FormData에 함께 첨부
+          if (file) {
+            formData.append("file", file);
+          }
+      
+          const response = await axios.post(
+            `http://localhost:8000/chapter/detail/${uid}/${0}/${0}`,
+            formData,
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+                "Content-Type": "multipart/form-data",
+              },
+            }
+          );
+      
+          console.log("챕터 세부내용 저장 성공 ✅", response.data);
+          return response.data; // { message, detail }
+        } catch (err) {
+          console.error("챕터 세부내용 저장 실패 ❌", err);
+          throw err;
+        }
+      };
+    
     return {
         schedules,
         addSchedule: addSchedule,
@@ -149,6 +198,7 @@ export const useScheduleManager = () => {
         addSubItem,
         removeSubItem,
         updateScheduleTitle,
-        updateChapterTitle
+        updateChapterTitle,
+        saveChapterDetail
     };
 };

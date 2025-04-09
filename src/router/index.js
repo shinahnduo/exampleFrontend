@@ -41,12 +41,13 @@ export const routes = [
     component: () => import('@/pages/Signup.vue'),
   },
   {
-    path: '/detail/:id',
+    path: '/detail/:detailId',
     component: () => import('@/pages/SubItemDetail.vue'),
   },
   {
-    path: '/read/:id',
+    path: '/read/:detailId',
     component: () => import('@/pages/ReadDetail.vue'),
+    props: true,
     meta: { requiresAuth: true }, // 인증이 필요한 페이지
   },
   {
