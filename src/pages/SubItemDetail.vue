@@ -25,9 +25,10 @@
 
     <!-- 하단 버튼 -->
     <div class="footer">
-      <button class="gray-button" @click="saveImage">임시저장</button>
+      <button class="gray-button">임시저장</button>
       <button class="white-button" @click="goBack">작성 취소</button>
       <button class="blue-button">다음 단계</button>
+      <button @click="handleSaveDetail" class="blue-button">챕터 세부내용 저장</button>
     </div>
   </div>
 </template>
@@ -35,7 +36,12 @@
 <script setup>
 import { ref } from "vue";
 import { useRouter } from "vue-router";
+import {useScheduleManager} from "@/components/api/scheduleManager";
 import Header from "@/components/Header.vue";
+
+const {
+  saveChapterDetail
+} = useScheduleManager();
 
 const router = useRouter();
 
@@ -62,30 +68,56 @@ const handleFileUpload = (event) => {
   }
 };
 
-const saveImage = async () => {
-  if (!selectedFile.value) {
-    alert("업로드할 이미지를 선택해주세요.");
-    return;
-  }
+// const saveImage = async () => {
+//   if (!selectedFile.value) {
+//     alert("업로드할 이미지를 선택해주세요.");
+//     return;
+//   }
 
-  const formData = new FormData();
-  formData.append("file", selectedFile.value);
+//   const formData = new FormData();
+//   formData.append("file", selectedFile.value);
 
+//   try {
+//     const response = await fetch("http://localhost:8000/image", {
+//       method: "POST",
+//       body: formData,
+//     });
+
+//     if (response.ok) {
+//       const result = await response.json();
+//       alert(`이미지가 성공적으로 저장되었습니다: ${result.message}`);
+//     } else {
+//       alert("이미지 저장에 실패했습니다.");
+//     }
+//   } catch (error) {
+//     console.error("이미지 저장 중 오류 발생:", error);
+//     alert("이미지 저장 중 오류가 발생했습니다.");
+//   }
+// };
+
+const handleSaveDetail = async () => {
   try {
-    const response = await fetch("http://localhost:8000/image", {
-      method: "POST",
-      body: formData,
-    });
-
-    if (response.ok) {
-      const result = await response.json();
-      alert(`이미지가 성공적으로 저장되었습니다: ${result.message}`);
-    } else {
-      alert("이미지 저장에 실패했습니다.");
+    if (!title.value || !description.value) {
+      alert("제목과 내용을 입력해주세요.");
+      return;
     }
+
+    // detail_data 구성
+    const detailData = {
+      title: title.value,
+      content: description.value,
+    };
+
+    // API 호출
+    const res = await saveChapterDetail(detailData, selectedFile.value);
+    alert(res.message); // "챕터 세부내용 저장 성공"
+
+    // 저장 성공 시 ReadDetail 페이지로 이동
+    router.push(`/read/${res.detail.id}`); // URL에 detailId 추가
+    
   } catch (error) {
-    console.error("이미지 저장 중 오류 발생:", error);
-    alert("이미지 저장 중 오류가 발생했습니다.");
+    console.error("디테일 저장 실패:", error);
+    alert("디테일 저장 중 오류가 발생했습니다.");
   }
 };
 

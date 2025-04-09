@@ -74,7 +74,7 @@ const goToMyPage = () => {
   width: 100%;
   padding: 12px 16px; /* 패딩 축소 */
   background-color: var(--primary-color); /* 메인 색상 */
-  color: white; /* 텍스트 색상 */
+  color: black; /* 텍스트 색상 */
   border-bottom: 2px solid #3e8e41; /* 하단 경계 */
 }
 

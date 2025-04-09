@@ -4,22 +4,15 @@
     <Header />
 
     <!-- 제목 -->
-    <h2 class="title">Chapter 1: 동방명주 관광</h2>
+    <h2 class="title">{{ chapterData.title || "Loading..." }}</h2>
 
     <!-- 내용 -->
     <div class="content-box">
-      <p>
-        Sarah gazed out the frost-covered window, her breath creating small clouds on the glass.
-        The winter morning was unusually quiet, with fresh snow blanketing the streets of Boston.
+      <p v-if="chapterData.content">
+        {{ chapterData.content }}
       </p>
-      <p>
-        The cursor on her laptop screen blinked steadily, matching the rhythm of her heartbeat.
-        The outline was ready, characters were developed, and the world she had created in her mind
-        was eager to spill onto the digital pages before her.
-      </p>
-      <p>
-        "Chapter One," she typed, fingers hovering over the keyboard as memories of her research
-        flooded back. The historical accuracy of 1920s speakeasies had to be perfect...
+      <p v-else>
+        데이터를 불러오는 중입니다...
       </p>
     </div>
 
@@ -32,19 +25,60 @@
 </template>
 
 <script setup>
-import { useRouter } from 'vue-router'
-import Header from '@/components/Header.vue'
+import { ref, onMounted } from "vue";
+import { useRouter, useRoute } from "vue-router";
+import axios from "axios";
+import Header from "@/components/Header.vue";
 
-const router = useRouter()
+const router = useRouter();
+const route = useRoute();
 
+console.log(route.params.detailId);
+console.log('here?');
+const detailId = route.params.detailId; // 전달받은 detailId
+const chapterData = ref({}); // 조회한 데이터를 저장할 상태
+
+// 뒤로가기 버튼
 const goBack = () => {
-  router.go(-1)
-}
+  router.go(-1);
+};
 
+// 저장 버튼 (추후 구현)
 const handleSave = () => {
-  // 저장 로직 구현
-  console.log('저장 기능 구현 예정')
-}
+  console.log("저장 기능 구현 예정");
+};
+
+// 백엔드에서 detailId를 기반으로 데이터 조회
+const fetchChapterDetail = async () => {
+  try {
+    const token = localStorage.getItem("jwt_token");
+    if (!token) throw new Error("로그인이 필요합니다.");
+
+    const response = await axios.get(`http://localhost:8000/chapter/detail/${detailId}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    chapterData.value = response.data; // 조회한 데이터를 상태에 저장
+    console.log("챕터 데이터 조회 성공 ✅", response.data);
+  } catch (error) {
+    console.error("챕터 데이터 조회 실패 ❌", error);
+    alert("데이터를 불러오는 중 오류가 발생했습니다.");
+  }
+};
+
+// 컴포넌트가 로드될 때 데이터 조회
+onMounted(() => {
+  if (detailId) {
+    fetchChapterDetail();
+  } 
+  // else {
+  //   console.error("detailId가 전달되지 않았습니다.");
+  //   alert("잘못된 접근입니다.");
+  //   router.push("/"); // 잘못된 접근 시 메인 페이지로 이동
+  // }
+});
 </script>
 
 <style scoped>
