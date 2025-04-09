@@ -1,5 +1,5 @@
 <template>
-  <div class="dropdown-container">
+  <div class="dropdown-container" ref="dropdownRef">
     <!-- 드롭다운 토글 버튼 -->
     <button @click="toggleMenu" class="dropdown-btn">
       ☰
@@ -61,7 +61,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, onMounted, onBeforeUnmount } from 'vue';
 
 // 드롭다운 메뉴 상태
 const isOpen = ref(false);
@@ -88,6 +88,23 @@ const toggleSection = (section) => {
 // 데이터
 const chapters = ref(["1장: 블라블라", "2장: 블라블라"]);
 const characters = ref(["김철수", "이춘배"]);
+
+// 외부 클릭 감지
+const dropdownRef = ref(null);
+
+const handleClickOutside = (event) => {
+  if (dropdownRef.value && !dropdownRef.value.contains(event.target)) {
+    isOpen.value = false;
+  }
+};
+
+onMounted(() => {
+  document.addEventListener("click", handleClickOutside);
+});
+
+onBeforeUnmount(() => {
+  document.removeEventListener("click", handleClickOutside);
+});
 </script>
 
 <style scoped>
@@ -101,6 +118,7 @@ const characters = ref(["김철수", "이춘배"]);
   font-size: 24px;
   cursor: pointer;
   padding: 5px;
+  color: white;
 }
 
 .dropdown-menu {

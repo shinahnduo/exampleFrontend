@@ -4,7 +4,7 @@
       <div class="logo-section">
         <MomentoLogo class="logo" />
         <h1>Momento</h1>
-        <p class="subtitle">Writing This Momento</p>
+        <p class="subtitle">Capture and cherish your moments</p>
       </div>
       <div class="button-section">
         <button class="login-button" @click="goToLogin">로그인</button>
@@ -19,37 +19,38 @@
 </template>
 
 <script>
-import { defineComponent } from 'vue'
-import { useRouter } from 'vue-router'
-import MomentoLogo from '@/components/icons/MomentoLogo.vue'
+import { defineComponent } from 'vue';
+import { useRouter } from 'vue-router';
+import MomentoLogo from '@/components/icons/MomentoLogo.vue';
 
 export default defineComponent({
   name: 'Landing',
   setup() {
-    const router = useRouter()
+    const router = useRouter();
 
-    const goToLogin = () => router.push('/login')
-    const goToSignup = () => router.push('/signup')
+    const goToLogin = () => router.push('/login');
+    const goToSignup = () => router.push('/signup');
     const redirectToGoogle = () => {
-      const clientId = "1045727623358-v2o1k3kskfaeh8g3pajg2de5v0suvspv.apps.googleusercontent.com";
-      const redirectUri = encodeURIComponent("http://localhost:8080/auth/callback");
-      const scope = encodeURIComponent("email profile openid");
-      const state = Math.random().toString(36).substring(2); // optional
+      const clientId = '1045727623358-v2o1k3kskfaeh8g3pajg2de5v0suvspv.apps.googleusercontent.com';
+      const redirectUri = encodeURIComponent('http://localhost:8080/auth/callback');
+      const scope = encodeURIComponent('email profile openid');
+      const state = Math.random().toString(36).substring(2);
 
-      const url = `https://accounts.google.com/o/oauth2/v2/auth?` +
+      const url =
+        `https://accounts.google.com/o/oauth2/v2/auth?` +
         `client_id=${clientId}` +
         `&redirect_uri=${redirectUri}` +
-        `&response_type=token` + // or "id_token token"
+        `&response_type=token` +
         `&scope=${scope}` +
         `&include_granted_scopes=true` +
         `&state=${state}`;
 
       window.location.href = url;
-    }
+    };
 
-    return { goToLogin, goToSignup, redirectToGoogle }
-  }
-})
+    return { goToLogin, goToSignup, redirectToGoogle };
+  },
+});
 </script>
 
 <style scoped>
@@ -58,8 +59,8 @@ export default defineComponent({
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, #1a1a1a 0%, #2c3e50 100%);
-  color: white;
+  background: #ffffff; /* 배경색을 흰색으로 변경 */
+  color: #000000; /* 폰트 색상을 검은색으로 변경 */
 }
 
 .content {
@@ -81,11 +82,12 @@ h1 {
   font-size: 2.5rem;
   font-weight: bold;
   margin-bottom: 0.5rem;
+  color: #000000; /* 검은색 폰트 */
 }
 
 .subtitle {
   font-size: 1.2rem;
-  color: #a8a8a8;
+  color: #555555; /* 약간 연한 검은색으로 변경 */
 }
 
 .button-section {
@@ -106,45 +108,32 @@ button {
 }
 
 .login-button {
-  background-color: #4CAF50;
+  background-color: var(--primary-color);
   color: white;
-  border: none;
-}
-
-.login-button:hover {
-  background-color: #45a049;
 }
 
 .signup-button {
   background-color: transparent;
-  color: white;
-  border: 2px solid white;
+  color: var(--primary-color);
+  border: 2px solid var(--primary-color);
 }
 
-.signup-button:hover {
-  background-color: rgba(255, 255, 255, 0.1);
-}
 .google-login-button {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #4285F4; /* Google 색상 */
+  background-color: var(--secondary-color);
   color: white;
   border: none;
   border-radius: 5px;
-  padding: 0.75rem; /* 버튼 높이 조정 */
+  padding: 0.75rem;
   cursor: pointer;
   font-size: 1rem;
-  transition: background-color 0.3s;
 }
 
 .google-login-button img {
-  width: 20px; /* 로고 크기 조정 */
-  height: 20px; /* 로고 크기 조정 */
+  width: 20px;
+  height: 20px;
   margin-right: 8px;
-}
-
-.google-login-button:hover {
-  background-color: #357ae8; /* 호버 색상 */
 }
 </style>
