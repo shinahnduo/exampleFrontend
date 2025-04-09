@@ -75,6 +75,9 @@ button {
   border: none;
   cursor: pointer;
 }
+.actions span {
+  cursor: pointer;
+}
 .content {
   padding: 10px;
   background: #fff;

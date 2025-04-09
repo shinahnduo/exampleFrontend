@@ -25,7 +25,7 @@
 
     <!-- 하단 버튼 -->
     <div class="footer">
-      <button class="gray-button">임시저장</button>
+      <button class="gray-button" @click="saveImage">임시저장</button>
       <button class="white-button" @click="goBack">작성 취소</button>
       <button class="blue-button">다음 단계</button>
     </div>
@@ -44,6 +44,7 @@ const description = ref("");
 const aiContent = ref("");
 const imagePreview = ref(null);
 const fileInput = ref(null);
+const selectedFile = ref(null); // 업로드할 파일을 저장
 
 const triggerFileInput = () => {
   fileInput.value.click();
@@ -52,11 +53,39 @@ const triggerFileInput = () => {
 const handleFileUpload = (event) => {
   const file = event.target.files[0];
   if (file) {
+    selectedFile.value = file; // 선택한 파일 저장
     const reader = new FileReader();
     reader.onload = (e) => {
       imagePreview.value = e.target.result;
     };
     reader.readAsDataURL(file);
+  }
+};
+
+const saveImage = async () => {
+  if (!selectedFile.value) {
+    alert("업로드할 이미지를 선택해주세요.");
+    return;
+  }
+
+  const formData = new FormData();
+  formData.append("file", selectedFile.value);
+
+  try {
+    const response = await fetch("http://localhost:8000/image", {
+      method: "POST",
+      body: formData,
+    });
+
+    if (response.ok) {
+      const result = await response.json();
+      alert(`이미지가 성공적으로 저장되었습니다: ${result.message}`);
+    } else {
+      alert("이미지 저장에 실패했습니다.");
+    }
+  } catch (error) {
+    console.error("이미지 저장 중 오류 발생:", error);
+    alert("이미지 저장 중 오류가 발생했습니다.");
   }
 };
 

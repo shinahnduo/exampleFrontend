@@ -1,18 +1,22 @@
 <template>
-  <div class="login-container">
-    <h2>이메일과 비밀번호로 로그인</h2>
-    <form @submit.prevent="handleLogin">
-      <div>
-        <label for="email">이메일:</label>
-        <input type="email" v-model="email" required />
-      </div>
-      <div>
-        <label for="password">비밀번호:</label>
-        <input type="password" v-model="password" required />
-      </div>
-      <button type="submit">로그인</button>
-      <div v-if="error" class="error">{{ error }}</div>
-    </form>
+  <!-- 부모 컨테이너 -->
+  <div class="login-wrapper">
+    <!-- 로그인 박스 -->
+    <div class="login-container">
+      <h2>로그인</h2>
+      <form @submit.prevent="handleLogin">
+        <div>
+          <label for="email">이메일:</label>
+          <input type="email" v-model="email" required />
+        </div>
+        <div>
+          <label for="password">비밀번호:</label>
+          <input type="password" v-model="password" required />
+        </div>
+        <button type="submit">로그인</button>
+        <div v-if="error" class="error">{{ error }}</div>
+      </form>
+    </div>
   </div>
 </template>
 
@@ -36,9 +40,7 @@ export default {
           password: password.value
         })
 
-        // 로그인 성공 시 /main 페이지로 이동
         if (response.data.token) {
-          // 토큰을 로컬 스토리지에 저장 (선택 사항)
           localStorage.setItem('token', response.data.token)
           router.push('/main')
         }
@@ -54,9 +56,20 @@ export default {
 </script>
 
 <style scoped>
+/* 부모 컨테이너: 화면 중앙 정렬을 위한 flex 세팅 */
+.login-wrapper {
+  display: flex;
+  align-items: center;      /* 수직 중앙 */
+  justify-content: center;  /* 수평 중앙 */
+  height: 100vh;            /* 뷰포트 전체 높이 사용 */
+  margin: 0;                /* 기본 여백 제거 */
+  padding: 0;
+}
+
+/* 로그인 박스(카드) 스타일 */
 .login-container {
+  width: 100%;
   max-width: 400px;
-  margin: 0 auto;
   padding: 20px;
   background: #f9f9f9;
   border-radius: 8px;
@@ -65,13 +78,16 @@ export default {
 
 h2 {
   text-align: center;
+  margin-bottom: 1rem;
 }
 
+/* 폼 구조 */
 form {
   display: flex;
   flex-direction: column;
 }
 
+/* 라벨 + 인풋 간격 */
 label {
   margin-bottom: 5px;
 }
@@ -81,8 +97,10 @@ input {
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 4px;
+  font-size: 1rem;
 }
 
+/* 버튼 */
 button {
   padding: 10px;
   background-color: #4CAF50;
@@ -90,6 +108,7 @@ button {
   border: none;
   border-radius: 4px;
   cursor: pointer;
+  font-size: 1rem;
 }
 
 button:hover {
